@@ -1,6 +1,6 @@
 import toast, { Toaster } from "react-hot-toast";
 
-const SearchBar = ({ onSubmit }) => {
+const SearchBar = ({ onSubmit, setData }) => {
   const fieldCheck = (e) => {
     e.preventDefault();
     const query = e.target.searchField.value;
@@ -10,7 +10,9 @@ const SearchBar = ({ onSubmit }) => {
       return;
     }
 
-    onSubmit(query);
+    onSubmit(query)
+      // .then(({ data }) => setData(data))
+      // .catch((err) => toast.error(err.message));
     e.target.reset();
   };
 

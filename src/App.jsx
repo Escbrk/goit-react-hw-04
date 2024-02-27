@@ -15,6 +15,9 @@ const App = () => {
     },
   });
 
+  useEffect(() => {
+    console.log(data)
+  }, [data]);
 
   async function search(query) {
     return await instance.get(`/photos/?${query}`);
@@ -22,7 +25,7 @@ const App = () => {
 
   return (
     <div>
-      <SearchBar onSubmit={search} />
+      <SearchBar onSubmit={search} setData={setData} />
       {data.length > 0 && <ImageGallery />}
     </div>
   );
