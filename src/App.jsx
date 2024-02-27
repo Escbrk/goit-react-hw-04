@@ -1,45 +1,31 @@
-import { useEffect, useState } from "react";
+import axios from "axios";
 import "./App.css";
-import ContactForm from "./components/ContactForm/ContactForm";
-import ContactList from "./components/ContactList/ContactList";
-import SearchBox from "./components/SearchBar/SearchBox";
-
-import contacts from "./contacts.json";
+import SearchBar from "./components/SearchBar/SearchBar";
+import ImageGallery from "./components/ImageGallery/ImageGallery";
+import { useState, useEffect } from "react";
 
 const App = () => {
-  const [contactList, setContactList] = useState(() => {
-    const savedData = localStorage.getItem("data");
-
-    return savedData !== null ? JSON.parse(savedData) : contacts;
+  const [data, setData] = useState([]);
+  const instance = axios.create({
+    baseURL: "https://api.unsplash.com",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept-Version": "v1",
+      Authorization: "Client-ID Cm_whFcI0aWjAKtIy6nEUeY3kTPfjkqGiHKF3_4_ufk",
+    },
   });
-  const [filter, setFilter] = useState("");
 
-  useEffect(() => {
-    localStorage.setItem("data", JSON.stringify(contactList));
-  });
 
-  const addContact = (newContact) => {
-    setContactList((prevContacts) => {
-      return [...prevContacts, newContact];
-    });
-  };
-  const deleteContact = (id) => {
-    setContactList((prevContacts) => {
-      return prevContacts.filter((contact) => contact.id !== id);
-    });
-  };
-
-  const filteredContacts = contactList.filter((filtered) =>
-    filtered.name.toLowerCase().includes(filter.toLowerCase())
-  );
+  async function search(query) {
+    return await instance.get(`/photos/?${query}`);
+  }
 
   return (
     <div>
-      <h1>Phonebook</h1>
-      <ContactForm onAdd={addContact} />
-      <SearchBox value={filter} onFilter={setFilter} />
-      <ContactList value={filteredContacts} onDelete={deleteContact} />
+      <SearchBar onSubmit={search} />
+      {data.length > 0 && <ImageGallery />}
     </div>
   );
 };
+
 export default App;
