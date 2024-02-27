@@ -3,7 +3,7 @@ import toast, { Toaster } from "react-hot-toast";
 const SearchBar = ({ onSubmit, setData }) => {
   const fieldCheck = (e) => {
     e.preventDefault();
-    const query = e.target.searchField.value;
+    const query = e.target.searchField.value.toLowerCase();
 
     if (e.target.searchField.value.trim() === "") {
       toast.error("This field can't be empty");
