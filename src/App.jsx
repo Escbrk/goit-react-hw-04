@@ -16,11 +16,11 @@ const App = () => {
   });
 
   useEffect(() => {
-    console.log(data)
+    console.log(data);
   }, [data]);
 
   async function search(query) {
-    return await instance.get(`/photos/?${query}`);
+    return await instance.get(`/search/photos/?page=1&query=${query}`);
   }
 
   return (

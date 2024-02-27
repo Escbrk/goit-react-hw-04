@@ -11,8 +11,8 @@ const SearchBar = ({ onSubmit, setData }) => {
     }
 
     onSubmit(query)
-      // .then(({ data }) => setData(data))
-      // .catch((err) => toast.error(err.message));
+      .then(({ data }) => setData(data))
+      .catch((err) => toast.error(err.message));
     e.target.reset();
   };
 
