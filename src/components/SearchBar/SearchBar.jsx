@@ -5,7 +5,7 @@ const SearchBar = ({ onSubmit, setData }) => {
     e.preventDefault();
     const query = e.target.searchField.value.toLowerCase();
 
-    if (e.target.searchField.value.trim() === "") {
+    if (query.trim() === "") {
       toast.error("This field can't be empty");
       return;
     }
