@@ -1,34 +1,45 @@
+import { Field, Form, Formik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
+import * as Yup from "yup";
+import css from "./SearchBar.module.css";
+import { FaSearch } from "react-icons/fa";
 
-const SearchBar = ({ onSubmit, setData }) => {
-  const fieldCheck = (e) => {
-    e.preventDefault();
-    const query = e.target.searchField.value.toLowerCase();
+const SearchBar = ({ onSearch }) => {
+  const notify = () => toast.error("This field can't be empty!");
 
-    if (query.trim() === "") {
-      toast.error("This field can't be empty");
-      return;
-    }
-
-    onSubmit(query)
-      .then(({ data }) => setData(data))
-      .catch((err) => toast.error(err.message));
-    e.target.reset();
-  };
+  const validationSchema = Yup.object().shape({
+    query: Yup.string().min(1, "Too Short! ❌").required(notify),
+  });
 
   return (
     <header>
       <Toaster />
-      <form onSubmit={fieldCheck}>
-        <input
-          name="searchField"
-          type="text"
-          autoComplete="off"
-          autoFocus
-          placeholder="Search images and photos"
-        />
-        <button type="submit">Search</button>
-      </form>
+      <Formik
+        initialValues={{ query: "" }}
+        validationSchema={validationSchema}
+        onSubmit={(values, actions) => {
+          actions.resetForm();
+
+          if (values.query.trim() === "") {
+            notify();
+            return;
+          }
+          onSearch(values.query.toLowerCase());
+        }}
+      >
+        <Form>
+          <Field
+            name="query"
+            type="search"
+            autoComplete="off"
+            // autoFocus
+            placeholder="Search images and photos"
+          />
+          <button type="submit">
+            <FaSearch />
+          </button>
+        </Form>
+      </Formik>
     </header>
   );
 };

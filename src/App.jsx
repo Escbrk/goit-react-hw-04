@@ -1,32 +1,62 @@
-import axios from "axios";
 import "./App.css";
+import { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
-import { useState, useEffect } from "react";
+import fetchGallery from "./galery-api";
+import Loader from "./components/Loader/Loader";
+import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
+import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 
 const App = () => {
-  const [data, setData] = useState([]);
-  const instance = axios.create({
-    baseURL: "https://api.unsplash.com",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept-Version": "v1",
-      Authorization: "Client-ID Cm_whFcI0aWjAKtIy6nEUeY3kTPfjkqGiHKF3_4_ufk",
-    },
-  });
+  const [images, setImages] = useState([]);
+  const [query, setQuery] = useState("");
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    if (query === "") return;
 
-  async function search(query) {
-    return await instance.get(`/search/photos/?page=1&query=${query}`);
-  }
+    const getData = async () => {
+      try {
+        setIsError(false);
+        setIsLoading(true);
+        // setImages([]);
+        const img = await fetchGallery(query, page);
+        setImages((prevImg) => {
+          return [...prevImg, ...img];
+        });
+      } catch (error) {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    getData();
+  }, [query, page]);
+
+  const handleSearch = (query) => {
+    setQuery(query);
+    setImages([]);
+    setPage(1);
+  };
+
+  const handleLoadMore = () => {
+    setPage(page + 1);
+  };
 
   return (
     <div>
-      <SearchBar onSubmit={search} setData={setData} />
-      {data.length > 0 && <ImageGallery />}
+      <SearchBar onSearch={handleSearch} />
+      {images.length > 0 && (
+        <>
+          <ImageGallery items={images} />
+          {!isLoading && <LoadMoreBtn onLoad={handleLoadMore} />}
+        </>
+      )}
+      {isLoading && <Loader />}
+      {isError && <ErrorMessage />}
     </div>
   );
 };
