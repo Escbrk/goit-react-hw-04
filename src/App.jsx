@@ -23,12 +23,8 @@ const App = () => {
         setIsError(false);
         setIsLoading(true);
         // setImages([]);
-        const { total_pages, results, isLastPage } = await fetchGallery(
-          query,
-          page
-        );
-        console.log(showBtn);
-        setShowBtn(total_pages !== 0 && isLastPage);
+        const { total_pages, results } = await fetchGallery(query, page);
+        setShowBtn(total_pages !== 0 && page === 200); //!при любом количестве запросов, бекенд не дает пройти дальше 200й страницы (то есть даже если total_pages будет 334, дальше не пройти, а кнопка будет показываться)
 
         setImages((prevImg) => {
           return [...prevImg, ...results];
@@ -39,10 +35,8 @@ const App = () => {
         setIsLoading(false);
       }
     };
-
     getData();
   }, [query, page]);
-
   const handleSearch = (newQuery) => {
     if (newQuery === query) return;
     setQuery(newQuery);
