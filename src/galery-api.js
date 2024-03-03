@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://api.unsplash.com",
+  baseURL: "https://api.unsplash.com/search",
   headers: {
     "Content-Type": "application/json",
     "Accept-Version": "v1",
@@ -9,17 +9,23 @@ const instance = axios.create({
   },
 });
 
-const fetchGallery = async (query, page = 1) => {
+const fetchGallery = async (query, page) => {
   const response = await instance.get("/photos", {
     params: {
       query,
       order_by: "latest",
       page,
+      per_page: 30,
     },
   });
-  console.log(response.data);
 
-  return response.data;
+  const {
+    data: { total_pages, results },
+    // data,
+  } = response;
+
+
+  return { total_pages, results };
 };
 
 export default fetchGallery;

@@ -13,18 +13,22 @@ const App = () => {
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [showBtn, setShowBtn] = useState(false);
 
   useEffect(() => {
-    if (query === "") return;
+    if (!query) return;
 
     const getData = async () => {
       try {
         setIsError(false);
         setIsLoading(true);
         // setImages([]);
-        const img = await fetchGallery(query, page);
+        const { total_pages, results } = await fetchGallery(query, page);
+
+        setShowBtn(total_pages !== 0 && total_pages !== page);
+
         setImages((prevImg) => {
-          return [...prevImg, ...img];
+          return [...prevImg, ...results];
         });
       } catch (error) {
         setIsError(true);
@@ -36,10 +40,11 @@ const App = () => {
     getData();
   }, [query, page]);
 
-  const handleSearch = (query) => {
-    setQuery(query);
+  const handleSearch = (newQuery) => {
+    if (newQuery === query) return;
+    setQuery(newQuery);
     setImages([]);
-    setPage(1);
+    setPage(200);
   };
 
   const handleLoadMore = () => {
@@ -52,7 +57,7 @@ const App = () => {
       {images.length > 0 && (
         <>
           <ImageGallery items={images} />
-          {!isLoading && <LoadMoreBtn onLoad={handleLoadMore} />}
+          {!isLoading && showBtn && <LoadMoreBtn onLoad={handleLoadMore} />}
         </>
       )}
       {isLoading && <Loader />}
