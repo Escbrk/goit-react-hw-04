@@ -23,9 +23,12 @@ const App = () => {
         setIsError(false);
         setIsLoading(true);
         // setImages([]);
-        const { total_pages, results } = await fetchGallery(query, page);
-
-        setShowBtn(total_pages !== 0 && total_pages !== page);
+        const { total_pages, results, isLastPage } = await fetchGallery(
+          query,
+          page
+        );
+        console.log(showBtn);
+        setShowBtn(total_pages !== 0 && isLastPage);
 
         setImages((prevImg) => {
           return [...prevImg, ...results];
@@ -44,7 +47,7 @@ const App = () => {
     if (newQuery === query) return;
     setQuery(newQuery);
     setImages([]);
-    setPage(200);
+    setPage(198);
   };
 
   const handleLoadMore = () => {
@@ -57,7 +60,7 @@ const App = () => {
       {images.length > 0 && (
         <>
           <ImageGallery items={images} />
-          {!isLoading && showBtn && <LoadMoreBtn onLoad={handleLoadMore} />}
+          {!isLoading && !showBtn && <LoadMoreBtn onLoad={handleLoadMore} />}
         </>
       )}
       {isLoading && <Loader />}
