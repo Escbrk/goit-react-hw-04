@@ -17,7 +17,7 @@ const fetchGallery = async (query, page) => {
       query,
       order_by: "latest",
       page,
-      // per_page: 10,
+      per_page: 15
     },
   });
 
