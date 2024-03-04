@@ -7,7 +7,22 @@ import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./components/ImageModal/ImageModal";
-import toast from "react-hot-toast";
+import Modal from "react-modal";
+
+//!===============================
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
+
+Modal.setAppElement("#root");
+//!===============================
 
 const App = () => {
   const [images, setImages] = useState([]);
@@ -17,6 +32,10 @@ const App = () => {
   const [isError, setIsError] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
+  //!===============================
+
+  //!===============================
 
   useEffect(() => {
     if (!query) return;
@@ -28,7 +47,7 @@ const App = () => {
         // setImages([]);
         const { total_pages, results } = await fetchGallery(query, page);
         setShowBtn(total_pages !== 0 && total_pages !== page);
-        //setShowBtn(total_pages !== 0 && page === 200); //!при любом количестве запросов, бекенд не дает пройти дальше 200й страницы (то есть даже если total_pages будет 334, дальше не пройти, а кнопка будет показываться)
+        //setShowBtn(total_pages !== 0 && page === 200); //!при любом количестве запросов, бекенд не дает пройти дальше 200й страницы (то есть даже если total_pages будет 334, дальше не пройти, а кнопка будет показываться), но что делать если страниц меньше?🤔
 
         setImages((prevImg) => {
           return [...prevImg, ...results];
@@ -64,11 +83,25 @@ const App = () => {
       <SearchBar onSearch={handleSearch} />
       {images.length > 0 && (
         <>
-          <ImageGallery items={images} />
+          <ImageGallery
+            items={images}
+            onModalOpen={handleOpenModal}
+            // onModalClose={handleCloseModal}
+          />
           {!isLoading && showBtn && <LoadMoreBtn onLoad={handleLoadMore} />}
         </>
       )}
-      {/* <ImageModal onOpen={handleOpenModal} onClose={handleCloseModal} /> */}
+
+      {showModal && (
+        <Modal
+          isOpen={showModal}
+          onRequestClose={handleCloseModal}
+          style={customStyles}
+        >
+          <ImageModal onModalClose={handleCloseModal} items={images} />
+        </Modal>
+      )}
+
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
     </div>

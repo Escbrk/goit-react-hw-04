@@ -1,12 +1,8 @@
-import ReactModal from "react-modal";
-
-export default function ImageModal({ onOpen, onClose }) {
+export default function ImageModal({ onModalClose }) {
   return (
     <div>
-      <button onClick={onOpen}></button>
-      <ReactModal>
-        <button onClick={onClose}></button>
-      </ReactModal>
+      {/* <button onClick={onModalClose}></button> */}
+      <img src="" alt="" onClick={onModalClose} />
     </div>
   );
 }
