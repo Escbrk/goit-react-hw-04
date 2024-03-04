@@ -6,6 +6,8 @@ import fetchGallery from "./galery-api";
 import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
+import ImageModal from "./components/ImageModal/ImageModal";
+import toast from "react-hot-toast";
 
 const App = () => {
   const [images, setImages] = useState([]);
@@ -25,7 +27,8 @@ const App = () => {
         setIsLoading(true);
         // setImages([]);
         const { total_pages, results } = await fetchGallery(query, page);
-        setShowBtn(total_pages !== 0 && page === 200); //!при любом количестве запросов, бекенд не дает пройти дальше 200й страницы (то есть даже если total_pages будет 334, дальше не пройти, а кнопка будет показываться)
+        setShowBtn(total_pages !== 0 && total_pages !== page);
+        //setShowBtn(total_pages !== 0 && page === 200); //!при любом количестве запросов, бекенд не дает пройти дальше 200й страницы (то есть даже если total_pages будет 334, дальше не пройти, а кнопка будет показываться)
 
         setImages((prevImg) => {
           return [...prevImg, ...results];
@@ -62,9 +65,10 @@ const App = () => {
       {images.length > 0 && (
         <>
           <ImageGallery items={images} />
-          {!isLoading && !showBtn && <LoadMoreBtn onLoad={handleLoadMore} />}
+          {!isLoading && showBtn && <LoadMoreBtn onLoad={handleLoadMore} />}
         </>
       )}
+      {/* <ImageModal onOpen={handleOpenModal} onClose={handleCloseModal} /> */}
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
     </div>
