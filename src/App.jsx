@@ -69,7 +69,7 @@ const App = () => {
     if (newQuery === query) return;
     setQuery(newQuery);
     setImages([]);
-    setPage(198);
+    setPage(1);
   };
 
   const handleLoadMore = () => {
