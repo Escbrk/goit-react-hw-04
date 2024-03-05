@@ -11,9 +11,9 @@ const ImageCard = ({
     onModalOpen();
   };
   return (
-    <div>
+    <>
       <img src={small} alt={description} onClick={target} />
-    </div>
+    </>
   );
 };
 

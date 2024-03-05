@@ -11,7 +11,7 @@ const instance = axios.create({
 
 const fetchGallery = async (query, page, perPage) => {
   const {
-    data: { results, total_pages, total },
+    data: { results, total_pages },
   } = await instance.get("/photos", {
     params: {
       query,
@@ -21,7 +21,7 @@ const fetchGallery = async (query, page, perPage) => {
     },
   });
 
-  return { results, total_pages, total };
+  return { results, total_pages };
 };
 
 export default fetchGallery;
