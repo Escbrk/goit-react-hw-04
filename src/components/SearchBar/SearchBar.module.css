@@ -1,7 +1,15 @@
 header {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0 auto;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0 auto;
+  border: 1px solid white;
+  background-color: rgb(87, 104, 255);
+  width: 99.91%;
+}
+
+input {
+  background-color: white;
+  color: black;
 }
