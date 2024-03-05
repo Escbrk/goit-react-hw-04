@@ -37,7 +37,6 @@ const App = () => {
     img: "",
     alt_description: "",
   });
-  console.log(images);
   //!===============================
 
   //!===============================
@@ -49,14 +48,13 @@ const App = () => {
       try {
         setIsError(false);
         setIsLoading(true);
-        const { total_pages, results, res } = await fetchGallery(
+        const { total_pages, results } = await fetchGallery(
           query,
           page,
           perPage
         );
-        setShowBtn(res);
 
-        // setShowBtn(total_pages !== 0 && total_pages !== page);
+        setShowBtn(total_pages !== 0 && total_pages !== page && page !== 200);
         //setShowBtn(total_pages !== 0 && page === 200); //!при любом количестве запросов, бекенд не дает пройти дальше 200й страницы (то есть даже если total_pages будет 334, дальше не пройти, а кнопка будет показываться), но что делать если страниц меньше?🤔
 
         setImages((prevImg) => {

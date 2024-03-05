@@ -21,10 +21,9 @@ const fetchGallery = async (query, page, perPage) => {
     },
   });
 
-  const res = total_pages !== 0 && total_pages !== page
-  console.log(res)
 
-  return { results, total_pages, res };
+
+  return { results, total_pages,  };
 };
 
 export default fetchGallery;
