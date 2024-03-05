@@ -38,7 +38,6 @@ const App = () => {
     alt_description: "",
   });
 
-
   useEffect(() => {
     if (!query) return;
 
@@ -72,6 +71,7 @@ const App = () => {
     setQuery(newQuery);
     setImages([]);
     setPage(198);
+    // setPage(1);
   };
 
   const handleLoadMore = () => {
