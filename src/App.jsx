@@ -32,8 +32,11 @@ const App = () => {
   const [isError, setIsError] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [perPage, setPerPage] = useState(15);
-  const [targetImg, serTargetImg] = useState("");
+  const [perPage] = useState(15);
+  const [modalData, setModalData] = useState({
+    img: "",
+    alt_description: "",
+  });
 
   //!===============================
 
@@ -52,9 +55,9 @@ const App = () => {
           perPage
         );
 
-        // setShowBtn(total_pages !== 0 && total_pages !== page);
         setShowBtn(results.length > 0);
 
+        // setShowBtn(total_pages !== 0 && total_pages !== page);
         //setShowBtn(total_pages !== 0 && page === 200); //!при любом количестве запросов, бекенд не дает пройти дальше 200й страницы (то есть даже если total_pages будет 334, дальше не пройти, а кнопка будет показываться), но что делать если страниц меньше?🤔
 
         setImages((prevImg) => {
@@ -68,6 +71,7 @@ const App = () => {
     };
     getData();
   }, [query, page, perPage]);
+
   const handleSearch = (newQuery) => {
     if (newQuery === query) return;
     setQuery(newQuery);
@@ -94,22 +98,16 @@ const App = () => {
           <ImageGallery
             items={images}
             onModalOpen={handleOpenModal}
-            onTarget={serTargetImg}
+            onTarget={setModalData}
             // onModalClose={handleCloseModal}
           />
           {!isLoading && showBtn && <LoadMoreBtn onLoad={handleLoadMore} />}
         </>
       )}
 
-      {showModal && (
-        <Modal
-          isOpen={showModal}
-          onRequestClose={handleCloseModal}
-          style={customStyles}
-        >
-          <ImageModal onModalClose={handleCloseModal} img={targetImg} />
-        </Modal>
-      )}
+      <Modal isOpen={showModal} style={customStyles}>
+        <ImageModal onModalClose={handleCloseModal} img={modalData} />
+      </Modal>
 
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}

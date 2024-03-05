@@ -20,6 +20,7 @@ const fetchGallery = async (query, page, perPage) => {
       per_page: perPage,
     },
   });
+
   
 
   return { results, total_pages };

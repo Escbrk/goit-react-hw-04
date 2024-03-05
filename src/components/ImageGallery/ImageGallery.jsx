@@ -4,12 +4,12 @@ import css from "./ImageGallery.module.css";
 const ImageGallery = ({ items, onModalOpen, onTarget }) => {
   return (
     <ul>
-      {items.map(({ id, description, urls }) => {
+      {items.map(({ id, alt_description, urls }) => {
         return (
           <li key={id}>
             <ImageCard
               url={urls}
-              description={description}
+              alt_description={alt_description}
               onModalOpen={onModalOpen}
               onTarget={onTarget}
             />
