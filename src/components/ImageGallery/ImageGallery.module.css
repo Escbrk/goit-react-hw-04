@@ -6,11 +6,10 @@ ul {
   gap: 15px;
 }
 li {
-  /* flex: 0 1 calc(25% - 15px); */
   flex: calc(20% - 15px)
 }
 li:last-child {
-  flex-basis: calc(20% - 15px); /* Задаем базовую ширину последнего элемента, чтобы он был такого же размера, как и остальные */
+  flex-basis: calc(20% - 15px);
 }
 
 img {
