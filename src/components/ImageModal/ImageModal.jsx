@@ -1,8 +1,10 @@
-export default function ImageModal({ onModalClose }) {
+import css from "./ImageModal.module.css";
+
+const ImageModal = ({ onModalClose, img }) => {
   return (
-    <div>
-      {/* <button onClick={onModalClose}></button> */}
-      <img src="" alt="" onClick={onModalClose} />
-    </div>
+    <>
+      <img className={css.modalImg} src={img} alt="" onClick={onModalClose} />
+    </>
   );
-}
+};
+export default ImageModal;

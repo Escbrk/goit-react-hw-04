@@ -9,19 +9,19 @@ const instance = axios.create({
   },
 });
 
-const fetchGallery = async (query, page) => {
+const fetchGallery = async (query, page, perPage) => {
   const {
-    data: { results, total_pages },
+    data: { results, total_pages, total },
   } = await instance.get("/photos", {
     params: {
       query,
       order_by: "latest",
       page,
-      per_page: 15
+      per_page: perPage,
     },
   });
 
-  return { results, total_pages };
+  return { results, total_pages, total };
 };
 
 export default fetchGallery;

@@ -32,6 +32,8 @@ const App = () => {
   const [isError, setIsError] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [perPage, setPerPage] = useState(15);
+  const [targetImg, serTargetImg] = useState();
 
   //!===============================
 
@@ -45,8 +47,14 @@ const App = () => {
         setIsError(false);
         setIsLoading(true);
         // setImages([]);
-        const { total_pages, results } = await fetchGallery(query, page);
+        const { total_pages, results, total } = await fetchGallery(
+          query,
+          page,
+          perPage
+        );
         setShowBtn(total_pages !== 0 && total_pages !== page);
+        // setShowBtn(page < Math.ceil(total / perPage));
+
         //setShowBtn(total_pages !== 0 && page === 200); //!при любом количестве запросов, бекенд не дает пройти дальше 200й страницы (то есть даже если total_pages будет 334, дальше не пройти, а кнопка будет показываться), но что делать если страниц меньше?🤔
 
         setImages((prevImg) => {
@@ -59,7 +67,7 @@ const App = () => {
       }
     };
     getData();
-  }, [query, page]);
+  }, [query, page, perPage]);
   const handleSearch = (newQuery) => {
     if (newQuery === query) return;
     setQuery(newQuery);
@@ -86,6 +94,7 @@ const App = () => {
           <ImageGallery
             items={images}
             onModalOpen={handleOpenModal}
+            onTarget={serTargetImg}
             // onModalClose={handleCloseModal}
           />
           {!isLoading && showBtn && <LoadMoreBtn onLoad={handleLoadMore} />}
@@ -98,7 +107,7 @@ const App = () => {
           onRequestClose={handleCloseModal}
           style={customStyles}
         >
-          <ImageModal onModalClose={handleCloseModal} items={images} />
+          <ImageModal onModalClose={handleCloseModal} img={targetImg} />
         </Modal>
       )}
 

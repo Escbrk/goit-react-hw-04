@@ -1,9 +1,10 @@
 ul {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 img {
-width: 400px;
-height: 400px;
+  width: 400px;
+  height: 400px;
 }

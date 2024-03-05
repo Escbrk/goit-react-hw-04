@@ -1,13 +1,20 @@
-import css from './ImageCard.module.css'
+import css from "./ImageCard.module.css";
 
-export default function ImageCard({
+const ImageCard = ({
   description,
-  url: { small },
+  url: { small, regular },
   onModalOpen,
-}) {
+  onTarget,
+}) => {
+  const target = (e) => {
+    onTarget(regular);
+    onModalOpen();
+  };
   return (
     <div>
-      <img src={small} alt={description} onClick={onModalOpen} />
+      <img src={small} alt={description} onClick={target} />
     </div>
   );
-}
+};
+
+export default ImageCard;
