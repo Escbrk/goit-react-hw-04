@@ -1,18 +1,14 @@
 ul {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  padding: 30px;
-  gap: 15px;
+  gap: 5px;
 }
 li {
-  flex: calc(20% - 15px)
-}
-li:last-child {
-  flex-basis: calc(20% - 15px);
+  width: calc((100% - 20px) / 5);
 }
 
 img {
   width: 100%;
-  height: 100%;
+  height: 300px;
+  display: block;
 }

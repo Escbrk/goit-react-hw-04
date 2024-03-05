@@ -52,7 +52,6 @@ const App = () => {
         );
 
         setShowBtn(total_pages !== 0 && total_pages !== page && page !== 200);
-        //setShowBtn(total_pages !== 0 && page === 200); //!при любом количестве запросов, бекенд не дает пройти дальше 200й страницы (то есть даже если total_pages будет 334, дальше не пройти, а кнопка будет показываться), но что делать если страниц меньше?🤔
 
         setImages((prevImg) => {
           return [...prevImg, ...results];
@@ -70,8 +69,7 @@ const App = () => {
     if (newQuery === query) return;
     setQuery(newQuery);
     setImages([]);
-    setPage(198);
-    // setPage(1);
+    setPage(1);
   };
 
   const handleLoadMore = () => {
