@@ -51,7 +51,7 @@ const App = () => {
           perPage
         );
 
-        setShowBtn(total_pages !== 0 && total_pages <= page && page !== 200);
+        setShowBtn(total_pages !== 0 && total_pages >= page && page !== 200);
 
         setImages((prevImg) => {
           return [...prevImg, ...results];
