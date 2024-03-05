@@ -13,7 +13,7 @@ const SearchBar = ({ onSearch }) => {
 
   return (
     <header>
-      <Toaster position="top-right"/>
+      <Toaster position="top-right" />
       <Formik
         initialValues={{ query: "" }}
         validationSchema={validationSchema}
