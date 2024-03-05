@@ -1,3 +1,10 @@
+body {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+}
+
 ul {
   list-style: none;
 }
@@ -9,5 +16,5 @@ ul {
 }
 
 .ReactModal__Overlay--after-open {
-  background-color:  rgba(13, 3, 26, 0.699) !important;
+  background-color: rgba(13, 3, 26, 0.699) !important;
 }

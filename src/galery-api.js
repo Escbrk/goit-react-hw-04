@@ -21,7 +21,10 @@ const fetchGallery = async (query, page, perPage) => {
     },
   });
 
-  return { results, total_pages };
+  const res = total_pages !== 0 && total_pages !== page
+  console.log(res)
+
+  return { results, total_pages, res };
 };
 
 export default fetchGallery;

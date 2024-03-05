@@ -37,7 +37,7 @@ const App = () => {
     img: "",
     alt_description: "",
   });
-
+  console.log(images);
   //!===============================
 
   //!===============================
@@ -49,13 +49,12 @@ const App = () => {
       try {
         setIsError(false);
         setIsLoading(true);
-        const { total_pages, results } = await fetchGallery(
+        const { total_pages, results, res } = await fetchGallery(
           query,
           page,
           perPage
         );
-
-        setShowBtn(results.length > 0);
+        setShowBtn(res);
 
         // setShowBtn(total_pages !== 0 && total_pages !== page);
         //setShowBtn(total_pages !== 0 && page === 200); //!при любом количестве запросов, бекенд не дает пройти дальше 200й страницы (то есть даже если total_pages будет 334, дальше не пройти, а кнопка будет показываться), но что делать если страниц меньше?🤔
@@ -99,7 +98,6 @@ const App = () => {
             items={images}
             onModalOpen={handleOpenModal}
             onTarget={setModalData}
-            // onModalClose={handleCloseModal}
           />
           {!isLoading && showBtn && <LoadMoreBtn onLoad={handleLoadMore} />}
         </>
@@ -112,6 +110,7 @@ const App = () => {
       >
         <ImageModal onModalClose={handleCloseModal} img={modalData} />
       </Modal>
+
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
     </div>
