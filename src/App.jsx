@@ -105,10 +105,13 @@ const App = () => {
         </>
       )}
 
-      <Modal isOpen={showModal} style={customStyles}>
+      <Modal
+        isOpen={showModal}
+        style={customStyles}
+        onRequestClose={handleCloseModal}
+      >
         <ImageModal onModalClose={handleCloseModal} img={modalData} />
       </Modal>
-
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
     </div>
