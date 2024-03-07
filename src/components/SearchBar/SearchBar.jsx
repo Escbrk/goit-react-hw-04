@@ -1,7 +1,7 @@
 import { Field, Form, Formik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
 import * as Yup from "yup";
-import css from "./SearchBar.module.css";
+import "./SearchBar.module.css";
 import { FaSearch } from "react-icons/fa";
 
 const SearchBar = ({ onSearch }) => {

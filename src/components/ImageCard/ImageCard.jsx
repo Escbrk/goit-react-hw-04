@@ -1,4 +1,4 @@
-import css from "./ImageCard.module.css";
+import "./ImageCard.module.css";
 
 const ImageCard = ({
   alt_description,
@@ -6,7 +6,7 @@ const ImageCard = ({
   onModalOpen,
   onTarget,
 }) => {
-  const target = (e) => {
+  const target = () => {
     onTarget({
       img: regular,
       alt_description,
