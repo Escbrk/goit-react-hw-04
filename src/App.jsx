@@ -79,12 +79,14 @@ const App = () => {
     setShowModal(false);
   };
 
+  //!==================================
   useEffect(() => {
     window.scrollTo({
       top: document.documentElement.scrollHeight,
       behavior: "smooth",
     });
   }, [images]);
+  //!==================================
 
   return (
     <div>
