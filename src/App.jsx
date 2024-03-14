@@ -32,7 +32,6 @@ const App = () => {
   const [isError, setIsError] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [perPage] = useState(15);
   const [modalData, setModalData] = useState({
     img: "",
     alt_description: "",
@@ -48,7 +47,6 @@ const App = () => {
         const { total_pages, results } = await fetchGallery(
           query,
           page,
-          perPage
         );
 
         setShowBtn(total_pages !== 0 && total_pages >= page && page !== 200);
@@ -79,6 +77,7 @@ const App = () => {
   const handleOpenModal = () => {
     setShowModal(true);
   };
+  
   const handleCloseModal = () => {
     setShowModal(false);
   };

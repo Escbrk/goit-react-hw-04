@@ -32,7 +32,6 @@ const SearchBar = ({ onSearch }) => {
             name="query"
             type="search"
             autoComplete="off"
-            // autoFocus
             placeholder="Search images and photos"
           />
           <button type="submit">
