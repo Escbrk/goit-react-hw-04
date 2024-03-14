@@ -44,10 +44,7 @@ const App = () => {
       try {
         setIsError(false);
         setIsLoading(true);
-        const { total_pages, results } = await fetchGallery(
-          query,
-          page,
-        );
+        const { total_pages, results } = await fetchGallery(query, page);
 
         setShowBtn(total_pages !== 0 && total_pages >= page && page !== 200);
 
@@ -61,7 +58,7 @@ const App = () => {
       }
     };
     getData();
-  }, [query, page, perPage]);
+  }, [query, page]);
 
   const handleSearch = (newQuery) => {
     if (newQuery === query) return;
@@ -77,7 +74,7 @@ const App = () => {
   const handleOpenModal = () => {
     setShowModal(true);
   };
-  
+
   const handleCloseModal = () => {
     setShowModal(false);
   };
