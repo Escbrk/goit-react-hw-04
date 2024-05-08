@@ -1,6 +1,7 @@
+import ImageCardProps from "../../types/ImageCardProps";
 import "./ImageCard.module.css";
 
-const ImageCard = ({
+const ImageCard: React.FC<ImageCardProps> = ({
   alt_description,
   url: { small, regular },
   onModalOpen,

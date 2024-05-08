@@ -3,8 +3,10 @@ import toast, { Toaster } from "react-hot-toast";
 import * as Yup from "yup";
 import "./SearchBar.module.css";
 import { FaSearch } from "react-icons/fa";
+import SearchBarProps from "../../types/SearchBarProps";
 
-const SearchBar = ({ onSearch }) => {
+
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const notify = () => toast.error("This field can't be empty!");
 
   const validationSchema = Yup.object().shape({

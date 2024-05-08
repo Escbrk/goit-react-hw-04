@@ -1,7 +1,13 @@
+import ImageGalleryProps from "../../types/ImageGalleryProps";
 import ImageCard from "../ImageCard/ImageCard";
 import "./ImageGallery.module.css";
 
-const ImageGallery = ({ items, onModalOpen, onTarget }) => {
+const ImageGallery: React.FC<ImageGalleryProps> = ({
+  items,
+  onModalOpen,
+  onTarget,
+}) => {
+  console.log(items);
   return (
     <ul>
       {items.map(({ id, alt_description, urls }) => {

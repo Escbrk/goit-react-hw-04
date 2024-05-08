@@ -9,7 +9,18 @@ const instance = axios.create({
   },
 });
 
-const fetchGallery = async (query, page) => {
+interface Images {
+  id: number;
+  alt_description: string;
+  urls: { small: string; regular: string };
+}
+
+interface Data {
+  results: Images[];
+  total_pages: number;
+}
+
+const fetchGallery = async (query: string, page: number): Promise<Data> => {
   const {
     data: { results, total_pages },
   } = await instance.get("/photos", {

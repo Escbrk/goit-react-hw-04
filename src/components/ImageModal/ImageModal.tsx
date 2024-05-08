@@ -1,6 +1,8 @@
+import ImageModalProps from "../../types/ImageModalProps";
 import css from "./ImageModal.module.css";
 
-const ImageModal = ({ onModalClose, img }) => {
+
+const ImageModal: React.FC<ImageModalProps> = ({ onModalClose, img }) => {
   return (
     <>
       <img

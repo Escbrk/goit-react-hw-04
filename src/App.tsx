@@ -21,26 +21,36 @@ const customStyles = {
   },
 };
 
+interface ModalData {
+  img: string;
+  alt_description: string;
+}
+
+interface Images {
+  id: number;
+  alt_description: string;
+  urls: { small: string; regular: string };
+}
+
 Modal.setAppElement("#root");
 //!===============================
 
 const App = () => {
-  const [images, setImages] = useState([]);
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [showBtn, setShowBtn] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [modalData, setModalData] = useState({
+  const [images, setImages] = useState<Images[]>([]);
+  const [query, setQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [showBtn, setShowBtn] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [modalData, setModalData] = useState<ModalData>({
     img: "",
     alt_description: "",
   });
-
-  useEffect(() => {
+  useEffect((): void => {
     if (!query) return;
 
-    const getData = async () => {
+    const getData = async (): Promise<void> => {
       try {
         setIsError(false);
         setIsLoading(true);
@@ -48,7 +58,7 @@ const App = () => {
 
         setShowBtn(total_pages !== 0 && total_pages >= page && page !== 200);
 
-        setImages((prevImg) => {
+        setImages((prevImg: Images[]) => {
           return [...prevImg, ...results];
         });
       } catch (error) {
@@ -60,27 +70,27 @@ const App = () => {
     getData();
   }, [query, page]);
 
-  const handleSearch = (newQuery) => {
+  const handleSearch = (newQuery: string): void => {
     if (newQuery === query) return;
     setQuery(newQuery);
     setImages([]);
     setPage(1);
   };
 
-  const handleLoadMore = () => {
+  const handleLoadMore = (): void => {
     setPage(page + 1);
   };
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (): void => {
     setShowModal(true);
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = (): void => {
     setShowModal(false);
   };
 
   //!==================================
-  useEffect(() => {
+  useEffect((): void => {
     window.scrollTo({
       top: document.documentElement.scrollHeight,
       behavior: "smooth",
